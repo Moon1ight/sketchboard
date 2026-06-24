@@ -1,0 +1,24 @@
+.fill-style {
+    border: 1px solid #000;
+    border-radius: 5px;
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+}
+
+.fill-style.hachure {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 4px;
+}
+.fill-style.hachure > div {
+    width: 2px;
+    height: 30px;
+    background: #000;
+    transform: rotate(45deg);
+}
+
+.fill-style.solid {
+    background: rgb(82, 82, 82);
+}
