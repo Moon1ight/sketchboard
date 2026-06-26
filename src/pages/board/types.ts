@@ -47,31 +47,6 @@ export interface ImageElement extends BaseElement {
 
 export type ElementInterface = ShapeElement | PencilElement | TextElement | ImageElement
 
-// export interface ElementInterface {
-//     id: number,
-//     x1: number,
-//     x2: number,
-//     y1: number,
-//     y2: number,
-//     offsetX: number,
-//     offsetY: number,
-//     xOffsets?: any,
-//     yOffsets?: any,
-//     type: DrawingElementType,
-//     roughElement: Drawable,
-//     points: PointsInterface[],
-//     text?: string,
-//     position: string | null,
-//     options: ElementSettingsInterface
-// }
-
-
-// export interface RoughElementInterface {
-//   options: ElementSettingsInterface,
-//   sets: unknown[],
-//   shape: string
-// }
-
 export interface ElementSettingsInterface {
   roughness: number;
   stroke: string;
@@ -97,6 +72,6 @@ export interface CoordinatesInterface {
   y1: number,
   x2: number,
   y2: number,
-  offsetX: number,
-  offsetY: number,
+  // offsetX: number,
+  // offsetY: number,
 }

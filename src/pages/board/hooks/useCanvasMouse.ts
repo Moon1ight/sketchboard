@@ -26,7 +26,6 @@ export const useCanvasMouse = ({
 }: UseCanvasMouseHandlersProps) => {    
     const {
         elements,
-        selectedElementId,
         tool,
         action,
         panOffset,
@@ -82,17 +81,24 @@ export const useCanvasMouse = ({
                     const xOffsets = element.points.map(point => mouseX - point.x)
                     const yOffsets = element.points.map(point => mouseY - point.y)
                     setSelectedElementId(element.id)
-                    setInteractionState({xOffsets: xOffsets, yOffsets: yOffsets})
+                    setInteractionState(prev => ({
+                            ...prev, 
+                            xOffsets: xOffsets, 
+                            yOffsets: yOffsets
+                        })
+                    )
                 } else {
                     // offsetX нужен для того, чтобы при выборе элемента он не скакал, так как изначально высчитывается относительно его верхнего угла
                     const offsetX = mouseX - element.x1
                     const offsetY = mouseY - element.y1
                     setSelectedElementId(element.id)
-                    setInteractionState({
-                        offsetX: offsetX,
-                        offsetY: offsetY,
-                        position: element.position
-                    })
+                    setInteractionState(prev => ({
+                            ...prev,
+                            offsetX: offsetX,
+                            offsetY: offsetY,
+                            position: element.position
+                        })
+                    )
                 }
                 setElements(prevState => prevState)
 
@@ -174,14 +180,13 @@ export const useCanvasMouse = ({
                 }))
                 updateElement(selectedElement.id, { points: newPoints })
             } else {
-                const {id, x1, x2, y1, y2, type, options} = selectedElement
+                if (!selectedElement) return
+                const {id, x1, x2, y1, y2} = selectedElement
                 const {offsetX, offsetY} = interactionState
                 const width = x2 - x1
                 const height = y2 - y1
                 const newX1 = mouseX - offsetX
                 const newY1 = mouseY - offsetY
-                const options2 = type === 'text' ? {text: selectedElement?.text} : options
-                // updateElement(id, newX1, newY1, newX1 + width, newY1 + height, type, options2)
                 updateElement(id, {
                     x1: newX1,
                     y1: newY1,
@@ -190,10 +195,15 @@ export const useCanvasMouse = ({
                 })
             }
         } else if (action === "resizing") {
-            const {id, type, options, ...coordinates} = selectedElement
+            if (!selectedElement) return
+            const {id, type, ...coordinates} = selectedElement
             const { position } = interactionState
-            const {x1, y1, x2, y2} = resizedCoordinates(mouseX, mouseY, position, coordinates)
-            // updateElement(id, x1, y1, x2, y2, type, options)
+
+            if (!position) return
+            const resized= resizedCoordinates(mouseX, mouseY, position, coordinates)
+            
+            if (!resized) return
+            const {x1, y1, x2, y2} = resized
             updateElement(id, {
                 x1,
                 y1,
@@ -228,8 +238,6 @@ export const useCanvasMouse = ({
 
             if ((action === "drawing" || action === "resizing") && adjustmentRequired(type)) {
                 const {x1, y1, x2, y2} = adjustElementCoordinates(element)
-                //  const {options} = selectedElement
-                // updateElement(id, x1, y1, x2, y2, type, options)
                 updateElement(id, { x1, y1, x2, y2 })
             }
         }
@@ -237,7 +245,6 @@ export const useCanvasMouse = ({
         if (action === 'writing') return
 
         setAction('none')
-        // setSelectedElement(null)
     } 
 
 

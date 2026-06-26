@@ -1,6 +1,16 @@
 import { useState,type Dispatch, type SetStateAction  } from "react"
 import type { CanvasActionType, DrawingToolType, ElementInterface, ElementPosition, PointsInterface } from "../types";
-import { useHistory } from "./useHistory";
+import { useHistory, type HistorySetState } from "./useHistory";
+
+interface IntetactionStateType {
+    offsetX: number
+    offsetY: number
+
+    xOffsets: number[]
+    yOffsets: number[]
+
+    position: ElementPosition | null
+}
 
 export interface CanvasState {
     elements: ElementInterface[],
@@ -12,19 +22,11 @@ export interface CanvasState {
     scale: number,
     scaleOffset: PointsInterface
 
-    interactionState: {
-        offsetX: number
-        offsetY: number
-
-        xOffsets: number[]
-        yOffsets: number[]
-
-        position: ElementPosition | null
-    }
+    interactionState: IntetactionStateType
 }
 
 export interface CanvasActions {
-    setElements: Dispatch<SetStateAction<ElementInterface[]>>
+    setElements: HistorySetState<ElementInterface[]>
     setSelectedElementId: Dispatch<SetStateAction<string | null>>
     setTool: (tool: DrawingToolType) => void
     setAction: (action: CanvasActionType) => void
@@ -35,7 +37,7 @@ export interface CanvasActions {
     undo: () => void
     redo: () => void
 
-    setInteractionState: any
+    setInteractionState: Dispatch<SetStateAction<IntetactionStateType>>
 }
 
 interface UseCanvasStateReturn {
@@ -47,7 +49,7 @@ export function useCanvasState(): UseCanvasStateReturn  {
     const [elements, setElements, undo, redo] = useHistory<ElementInterface[]>([])
     const [selectedElementId, setSelectedElementId] = useState<string | null>(null)
     
-    const [interactionState, setInteractionState] = useState({
+    const [interactionState, setInteractionState] = useState<IntetactionStateType>({
         offsetX: 0,
         offsetY: 0,
 

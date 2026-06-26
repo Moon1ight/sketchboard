@@ -1,6 +1,6 @@
-import {memo, useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import {memo, useCallback, useEffect, useMemo, useRef} from 'react';
 
-import type { DrawingToolType } from './types';
+import type { DrawingToolType, ElementInterface } from './types';
 
 import { useCanvasMouse } from './hooks/useCanvasMouse';
 import { useCanvasRender } from './hooks/useCanvasRender';
@@ -13,8 +13,6 @@ import { TextEditorOverlay } from './components/text-editor-overlay';
 import BottomPanel from './components/bottom-panel';
 import Toolbar from './components/toolbar';
 
-import { useParams } from 'react-router-dom';
-import type { PathParams, ROUTES } from '@/shared/model/routes';
 import { usePressedKeys } from './hooks/usePressedKeys';
 import { useElementSettings } from './hooks/useElementSettings';
 import { useCanvasActions } from './hooks/useCanvasActions';
@@ -23,7 +21,7 @@ import { useCanvasResize } from './hooks/useCanvasResize';
 const Editor = memo(() => {
     // const params = useParams<PathParams[typeof ROUTES.BOARD]>()
     // console.log('Routing params: ', params);
-    const [userName, setUserName] = useState('McLovin')
+    const userName = 'Matthew'
 
     const { canvasState, canvasActions } = useCanvasState()
     
@@ -50,7 +48,7 @@ const Editor = memo(() => {
     const pressedKeys = usePressedKeys()
     const elementSettingManager = useElementSettings()
 
-    const selectedElement = useMemo(() => {
+    const selectedElement: ElementInterface | null = useMemo(() => {
         return elements.find(el => el.id === selectedElementId) ?? null
     }, [elements, selectedElementId])
 
@@ -81,7 +79,11 @@ const Editor = memo(() => {
             if (!textArea) return
 
             textArea.focus()
-            textArea.value = selectedElement?.text ?? ''
+            if (selectedElement && selectedElement.type === 'text') {
+                textArea.value = selectedElement?.text ?? ''
+            } else {
+                textArea.value = ''
+            }
         })
 
         return () => cancelAnimationFrame(id)

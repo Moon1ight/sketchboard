@@ -4,6 +4,7 @@ import type { DrawingToolType, ElementInterface, ImageElement } from '../types';
 import { useRef } from 'react';
 
 import { v4 as uuidv4 } from "uuid";
+import type { HistorySetState } from '../hooks/useHistory';
 
 export type Tool = {
   title: DrawingToolType
@@ -22,7 +23,7 @@ const TOOLS: Tool[] = [
 interface ToolbarProps {
     activeTool: DrawingToolType,
     onSelectTool: (tool: DrawingToolType) => void,
-    setElements: (elements: ElementInterface[]) => void
+    setElements: HistorySetState<ElementInterface[]>
 }
 
 const Toolbar = ({
@@ -71,7 +72,7 @@ const Toolbar = ({
                     }
                 }
 
-                    setElements(prev => [...prev, element])
+                setElements(prev => [...prev, element])
             }
 
             image.src = src

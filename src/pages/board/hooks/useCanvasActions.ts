@@ -1,10 +1,22 @@
 import { useCallback } from 'react';
-import type { ElementInterface } from '../types';
+import type { ElementInterface, ElementSettingsInterface, PointsInterface } from '../types';
 
 interface UseCanvasActionProps {
     elements: ElementInterface[],
-    setElements: any,
+    setElements: (elements: ElementInterface[], overwrite?: boolean) => void,
     canvasRef: React.RefObject<HTMLCanvasElement | null>
+}
+
+type ElementUpdates = {
+    x1?: number
+    y1?: number
+    x2?: number
+    y2?: number
+
+    options?: Partial<ElementSettingsInterface>
+
+    text?: string
+    points?: PointsInterface[]
 }
 
 export const useCanvasActions = ({
@@ -16,11 +28,12 @@ export const useCanvasActions = ({
     //=== Обновление элемента
     const updateElement = useCallback((
         id: string,
-        updates: any
-        // updates: Partial<ElementInterface>
+        updates: ElementUpdates
     ) => {
         const elementsCopy = [...elements]
         const elementIndex = elementsCopy.findIndex(el => el.id === id)
+
+        const { options, ...restUpdates } = updates
 
         if (elementIndex === -1) return
 
@@ -43,7 +56,13 @@ export const useCanvasActions = ({
             case 'pencil': 
                 elementsCopy[elementIndex] = {
                     ...element, 
-                    ...updates
+                    ...restUpdates,
+                    options: options
+                        ? {
+                            ...element.options,
+                            ...options
+                        }
+                        : element.options
                 }
                 break
 
@@ -59,7 +78,13 @@ export const useCanvasActions = ({
 
                 elementsCopy[elementIndex] = {
                     ...element,
-                    ...updates,
+                    ...restUpdates,
+                    options: options
+                        ? {
+                            ...element.options,
+                            ...options,
+                        }
+                        : element.options,
                     text: newText,
                     x2: element.x1 + textWidth,
                     y2: element.y1 + textHeight

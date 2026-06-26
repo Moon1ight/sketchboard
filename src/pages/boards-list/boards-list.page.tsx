@@ -1,5 +1,4 @@
 import { EditIcon, PlusIcon, Trash2Icon } from 'lucide-react';
-import React from 'react';
 import { Button } from '../../shared/components/Button/Button';
 import { href, Link } from 'react-router-dom';
 import { ROUTES } from '@/shared/model/routes';

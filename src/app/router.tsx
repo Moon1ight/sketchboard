@@ -1,8 +1,8 @@
-import { createBrowserRouter, redirect } from "react-router-dom";
+import { createHashRouter, redirect } from "react-router-dom";
 import App from "./app";
 import { ROUTES } from "@/shared/model/routes";
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
     {
         element: <App />,
         children: [

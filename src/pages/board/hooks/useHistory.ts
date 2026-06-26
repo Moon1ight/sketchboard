@@ -1,7 +1,7 @@
 // Кастомные хуки
 import { type SetStateAction, useState } from "react"
 
-type HistorySetState<T> = (
+export type HistorySetState<T> = (
     action: SetStateAction<T>,
     overwrite?: boolean
 ) => void

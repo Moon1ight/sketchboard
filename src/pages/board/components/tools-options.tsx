@@ -1,6 +1,6 @@
 import { Button } from '../../../shared/components/Button/Button'
 import { Range } from '../../../shared/components/Range/Range';
-import { BanIcon, BoldIcon, ItalicIcon, UnderlineIcon } from 'lucide-react';
+import { BoldIcon, ItalicIcon, UnderlineIcon } from 'lucide-react';
 import type { DrawingToolType, ElementInterface, ElementSettingsManager } from '../types';
 import { FillStyleIcon } from './fill-styles';
 

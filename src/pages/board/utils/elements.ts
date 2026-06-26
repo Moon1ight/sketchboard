@@ -54,7 +54,7 @@ export const adjustElementCoordinates = (element: ElementInterface) => {
     return {x1: x2, y1: y2, x2: x1, y2: y1}
 }
 
-export const resizedCoordinates = (mouseX: number, mouseY: number, position: ElementPosition | null, coordinates: CoordinatesInterface) => {
+export const resizedCoordinates = (mouseX: number, mouseY: number, position: ElementPosition, coordinates: CoordinatesInterface) => {
     const {x1, y1, x2, y2} = coordinates
 
     switch(position) {

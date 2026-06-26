@@ -1,4 +1,4 @@
-import { RefObject, useLayoutEffect } from "react";
+import { type RefObject, useLayoutEffect } from "react";
 
 interface UseCanvasResizeProps {
     canvasRef: RefObject<HTMLCanvasElement | null>
