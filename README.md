@@ -2,7 +2,9 @@
 
 ![Иллюстрация к проекту](https://github.com/Moon1ight/sketchboard/blob/main/public/sketchboard-preview.jpg)
 
-Графический редактор 
+[Open Sketchboard](https://твой-логин.github.io/sketchboard/)
+
+Графический редактор на React + Canvas API
 
 ---
 
