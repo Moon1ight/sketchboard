@@ -37,7 +37,7 @@ const BoardsPage = () => {
                         <img src='editor-preview2.jpg' alt='preview' className='h-40 border-1 border-[#d8d8d8] rounded-lg'/>
                         <div>
                             <h3 className='text-[24px]'>Board #2</h3>
-                            <p>Набросок епты бля</p>
+                            <p>Набросок</p>
                             <span className='text-[gray]'>11.05.2026</span>
                         </div>
                         <div className='ml-auto flex flex-col gap-5'>
