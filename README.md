@@ -4,7 +4,7 @@
 
 [Открыть Sketchboard](https://moon1ight.github.io/sketchboard/)
 
-Графический редактор на React + Canvas API
+Графический редактор на React + TypeScript + Canvas API.
 
 ---
 
