@@ -60,9 +60,9 @@ export const CanvasTools = ({elements, setElements, canvasRef, userName}: Canvas
     return (
         <div className='absolute z-2 p-1 gap-1 flex-col bg-[#fff] rounded-lg top-3 right-3' style={{boxShadow: '3px 3px 10px #00000030'}}>
             <Button variant='ghost' size={isOpen ? 'sm' : 'md'} onClick={showCanvasTools} className='justify-center gap-5 w-[100%]'>
-                <MenuSquareIcon /> {isOpen ? 'Настройки' : 'Закрыть'}
+                <MenuSquareIcon /> {isOpen ? 'Закрыть' : 'Настройки'}
             </Button>
-            <div className={isOpen ? 'hidden' : 'flex flex-col gap-2'}>
+            <div className={isOpen ? 'flex flex-col gap-2' : 'hidden'}>
                 <hr/>
                 <input
                     ref={uploadLocalJson}
